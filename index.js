@@ -27,6 +27,10 @@ io.on("connection", (socket) => {
 	socket.on("send-info", (mic,video,id) => {
 		socket.to(id).emit("recieve-info", mic,video)
 	});
+	
+	socket.on("send-name", (name,id) => {
+		socket.to(id).emit("recieve-name",name)
+	});
 
 	socket.on("disconnect", () => {
 		socket.broadcast.emit("callEnded")
@@ -37,7 +41,7 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("answerCall", (data) => {
-		io.to(data.to).emit("callAccepted", data.signal,data.callerName)
+		io.to(data.to).emit("callAccepted", data.signal)
 	});
 });
 
